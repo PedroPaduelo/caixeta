@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+<!-- Active URL: https://ondras.zarovi.cz/sql/demo/ -->
+<sql>
+<datatypes db="postgresql">
+        <group label="Numeric" color="rgb(238,238,170)">
+            <type label="Integer" length="0" sql="INTEGER" re="INT" quote=""/>
+            <type label="Small Integer" length="0" sql="SMALLINT" quote=""/>
+            <type label="Big Integer" length="0" sql="BIGINT" quote=""/>
+            <type label="Decimal" length="1" sql="DECIMAL" re="numeric" quote=""/>
+            <type label="Serial" length="0" sql="SERIAL" re="SERIAL4" fk="Integer" quote=""/>
+            <type label="Big Serial" length="0" sql="BIGSERIAL" re="SERIAL8" fk="Big Integer" quote=""/>
+            <type label="Real" length="0" sql="BIGINT" quote=""/>
+            <type label="Single precision" length="0" sql="FLOAT" quote=""/>
+            <type label="Double precision" length="0" sql="DOUBLE" re="DOUBLE" quote=""/>
+        </group>
+        <group label="Character" color="rgb(255,200,200)">
+            <type label="Char" length="1" sql="CHAR" quote="'"/>
+            <type label="Varchar" length="1" sql="VARCHAR" re="CHARACTER VARYING" quote="'"/>
+            <type label="Text" length="0" sql="TEXT" quote="'"/>
+            <type label="Binary" length="1" sql="BYTEA" quote="'"/>
+            <type label="Boolean" length="0" sql="BOOLEAN" quote="'"/>
+        </group>
+        <group label="Date &amp; Time" color="rgb(200,255,200)">
+            <type label="Date" length="0" sql="DATE" quote="'"/>
+            <type label="Time" length="1" sql="TIME" quote="'"/>
+            <type label="Time w/ TZ" length="0" sql="TIME WITH TIME ZONE" quote="'"/>
+            <type label="Interval" length="1" sql="INTERVAL" quote="'"/>
+            <type label="Timestamp" length="1" sql="TIMESTAMP" quote="'"/>
+            <type label="Timestamp w/ TZ" length="0" sql="TIMESTAMP WITH TIME ZONE" quote="'"/>
+            <type label="Timestamp wo/ TZ" length="0" sql="TIMESTAMP WITHOUT TIME ZONE" quote="'"/>
+        </group>
+        <group label="Miscellaneous" color="rgb(200,200,255)">
+            <type label="XML" length="1" sql="XML" quote="'"/>
+            <type label="Bit" length="1" sql="BIT" quote="'"/>
+            <type label="Bit Varying" length="1" sql="VARBIT" re="BIT VARYING" quote="'"/>
+            <type label="Inet Host Addr" length="0" sql="INET" quote="'"/>
+            <type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
+            <type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
+        </group>
+    </datatypes><table x="37" y="339" name="tbl_user">
+<row name="email" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+</row>
+<row name="password" null="0" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+</row>
+<row name="fist_name" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+</row>
+<row name="last_name" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+</row>
+<row name="token" null="1" autoincrement="0">
+<datatype>VARCHAR(10000)</datatype>
+<default>NULL</default></row>
+<row name="desc_status" null="0" autoincrement="0">
+<datatype>VARCHAR(200)</datatype>
+</row>
+<row name="desc_tipouser" null="0" autoincrement="0">
+<datatype>VARCHAR(200)</datatype>
+</row>
+<row name="photo_file" null="1" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+<default>NULL</default></row>
+<row name="chartered" null="0" autoincrement="0">
+<datatype>VARCHAR(10)</datatype>
+</row>
+<row name="id_chartered" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="service_routing" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>0</default></row>
+<row name="fisrt_access " null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>1</default></row>
+<row name="enabled_service" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>0</default></row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>email</part>
+</key>
+</table>
+<table x="1002" y="13" name="tbl_service">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="path" null="0" autoincrement="0">
+<datatype>VARCHAR(5000)</datatype>
+</row>
+<row name="name_service" null="0" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+</row>
+<row name="service_component" null="0" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+</row>
+<row name="icon" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="450" y="47" name="tbl_rel_user_service">
+<row name="id_service" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_service" row="id" />
+</row>
+<row name="email_user" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<key type="PRIMARY" name="">
+<part>email_user</part>
+<part>id_service</part>
+</key>
+</table>
+<table x="1002" y="247" name="tbl_queues">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="queue_name" null="0" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+</row>
+<row name="queue_desc" null="0" autoincrement="0">
+<datatype>VARCHAR(5000)</datatype>
+</row>
+<row name="queue_priority" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="queue_status_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_status" row="id" />
+</row>
+<row name="queue_id_cell" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_cell" row="id" />
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="452" y="147" name="tbl_rel_queues_users">
+<row name="id_queues" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_queues" row="id" />
+</row>
+<row name="email_user" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<key type="PRIMARY" name="">
+<part>id_queues</part>
+<part>email_user</part>
+</key>
+</table>
+<table x="1014" y="514" name="tbl_cell">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name_cell" null="0" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+</row>
+<row name="desc_cell" null="0" autoincrement="0">
+<datatype>VARCHAR(5000)</datatype>
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR(250)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="cell_status_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_status" row="id" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="40" y="770" name="tbl_status">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="status_desc" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="status_flag_pendente" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>1</default></row>
+<row name="status_tipo" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR(256)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="947" y="1446" name="tbl_tickt">
+<row name="tickt_date_check_in" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="tickt_hour_check_in" null="1" autoincrement="0">
+<datatype>TIME</datatype>
+<default>NULL</default></row>
+<row name="tickt_date_check_out" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="tickt_hour_check_out" null="1" autoincrement="0">
+<datatype>TIME</datatype>
+<default>NULL</default></row>
+<row name="tickt_user" null="1" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+<default>NULL</default><relation table="tbl_user" row="email" />
+</row>
+<row name="tickt_tipo_status" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="tickt_status_ocorrencia" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_status" row="id" />
+</row>
+<row name="tickt_regra_executada" null="1" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+<default>NULL</default></row>
+<row name="tickt_carteira_user_ocorrencia" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="tickt_doc_pendente" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="tickt_tipo_doc" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="tickt_campanha" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="tickt_id_fila" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="tickt_prioridade" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="tickt_data_de_processamento" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="tickt_data_do_primeiro_envio" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="tickt_agind_doc" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="tickt_fup_data_agendada" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="tickt_fup_flague_atraso" null="1" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>tickt_doc_pendente</part>
+<part>tickt_id_fila</part>
+</key>
+</table>
+<table x="529" y="1450" name="tbl_log_tickt">
+<row name="log_tickt_id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="log_tickt_date_check_in" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="log_tickt_hour_check_in" null="1" autoincrement="0">
+<datatype>TIME</datatype>
+<default>NULL</default></row>
+<row name="log_tickt_date_check_out" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="log_tickt_hour_check_out" null="1" autoincrement="0">
+<datatype>TIME</datatype>
+<default>NULL</default></row>
+<row name="log_tickt_user" null="1" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+<default>NULL</default><relation table="tbl_user" row="email" />
+</row>
+<row name="log_tickt_tipo_status" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="log_tickt_status_ocorrencia" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_status" row="id" />
+</row>
+<row name="log_tickt_regra_executada" null="1" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+<default>NULL</default></row>
+<row name="log_tickt_carteira_user_ocorrencia" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="log_tickt_doc_pendente" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="log_tickt_tipo_doc" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="log_tickt_campanha" null="0" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+</row>
+<row name="log_tickt_id_fila" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="log_tickt_prioridade" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="log_tickt_data_de_processamento" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="log_tickt_data_do_primeiro_envio" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="log_tickt_agind_doc" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="log_tickt_fup_data_agendada" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="log_tickt_fup_flague_atraso" null="1" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+<default>NULL</default></row>
+<row name="log_tickt_id_tabulacao" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="created_hour" null="0" autoincrement="0">
+<datatype>TIME</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>log_tickt_id</part>
+</key>
+</table>
+<table x="1555" y="379" name="tbl_forme">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="forme_name" null="0" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+</row>
+<row name="forme_tipo" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="forme_status_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_status" row="id" />
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1549" y="636" name="tbl_question">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="id_forme" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_forme" row="id" />
+</row>
+<row name="question_name_label" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="question_type" null="0" autoincrement="0">
+<datatype>VARCHAR(50)</datatype>
+</row>
+<row name="question_status_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_status" row="id" />
+</row>
+<row name="question_placeholder" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="question_register_name" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="question_text_validation_error" null="1" autoincrement="0">
+<datatype>VARCHAR(5000)</datatype>
+</row>
+<row name="question_required" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1557" y="981" name="tbl_options_select_question">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="options_select_question_label" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="options_select_question_value" null="0" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="options_status_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_status" row="id" />
+</row>
+<row name="id_question" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_question" row="id" />
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR(256)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="882.5" y="1089" name="tbl_answer">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="id_question" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_question" row="id" />
+</row>
+<row name="answer_content" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="user_created" null="0" autoincrement="0">
+<datatype>VARCHAR(256)</datatype>
+<relation table="tbl_user" row="email" />
+</row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="54.25" y="1222" name="tbl_rel_answer_log_tickt">
+<row name="id_answer" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_answer" row="id" />
+</row>
+<row name="log_tickt_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="tbl_log_tickt" row="log_tickt_id" />
+</row>
+<key type="PRIMARY" name="">
+<part>log_tickt_id</part>
+<part>id_answer</part>
+</key>
+</table>
+</sql>
