@@ -90,8 +90,6 @@ export async function List(table: string) {
     });
   }
 }
-
-
 export async function List_Full_By_Col(table: string, col: string, col_value: any) {
   try {
     const result = await connection.select("*")
@@ -112,9 +110,6 @@ export async function List_Full_By_Col(table: string, col: string, col_value: an
     });
   }
 }
-
-
-
 export async function Get_By_Id(table: string, id: number) {
 
   try {
@@ -202,10 +197,6 @@ export async function List_Full_raw(table: string) {
     });
   }
 }
-
-
-
-
 export async function List_Full_By_Col_like(table: string, col: string, col_value: any) {
   try {
     
@@ -229,3 +220,58 @@ export async function List_Full_By_Col_like(table: string, col: string, col_valu
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+export async function Sun_Full_By_Col(table: string, colSum: string, colWhere: string, col_value: any) {
+  try {
+    const result = await connection(table)
+      .sum(colSum)
+      .from(table)
+      .where(colWhere, col_value)
+      .first();
+
+    return ({
+      status: "success",
+      result: result,
+      message: "Sucesso ao listar!!!"
+    }); 
+  } catch (error) {
+    return ({
+      status: "success",
+      result: error,
+      message: "Erro ao listar."
+    });
+  }
+}
+
+
+
+export async function Sun_Full(table: string, colSum: string) {
+  try {
+    const result = await connection(table)
+      .sum(colSum)
+      .from(table)
+      .first();
+
+    return ({
+      status: "success",
+      result: result,
+      message: "Sucesso ao listar!!!"
+    }); 
+  } catch (error) {
+    return ({
+      status: "success",
+      result: error,
+      message: "Erro ao listar."
+    });
+  }
+}
