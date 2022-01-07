@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "start": "node dist/server.js"
   },
