@@ -74,7 +74,7 @@ export async function Delete(table: string, id: number) {
 export async function List(table: string) {
 
   try {
-    const result = await connection.select("*").from(table).orderBy("id");
+    const result = await connection.select("*").from(table).orderBy("id", "desc");
 
     return ({
       status: "success",
