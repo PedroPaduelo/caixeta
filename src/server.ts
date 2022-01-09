@@ -11,10 +11,10 @@ const app = express();
 app.use(cors());
 app.use(json());
 
-
+app.use(Routes_Core_Sistem);
 app.use(Routes_WKF);
 app.use(Routes_Crud);
-app.use(Routes_Core_Sistem);
+
 
 const port = process.env.PORT || 3011;
 app.listen(port);

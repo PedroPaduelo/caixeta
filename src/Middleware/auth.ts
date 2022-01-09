@@ -5,7 +5,6 @@ async function validate(request, response, next) {
 
   const { authorization } = request.headers;
 
-  
   if(!authorization){
     return response.status(401).send({erro: "Erro authorization"})
   }

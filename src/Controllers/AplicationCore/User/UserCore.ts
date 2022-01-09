@@ -71,6 +71,9 @@ export async function Update(request, response) {
   const user_last_name = request.body.user_last_name;
   const user_photo_file = request.body.user_photo_file;
   const user_tipo = request.body.user_tipo;
+  const caixa_aberto = request.body.caixa_aberto;
+  const caixa_id = request.body.caixa_id;
+
 
 
   // Busca email para validar se o user ja ta na base
@@ -87,6 +90,8 @@ export async function Update(request, response) {
       user_photo_file,
       user_tipo,
       user_fisrt_access,
+      caixa_aberto,
+      caixa_id,
       user_updated_at
     });
     return response.json(userUpData);

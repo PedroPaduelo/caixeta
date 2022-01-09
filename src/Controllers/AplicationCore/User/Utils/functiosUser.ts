@@ -69,7 +69,7 @@ export async function Get_User_By_Email_With_Password(user_email) {
 export async function Get_User_By_Email_Valid(email) {
 
       try {
-            const result = await connection('tbl_user').where('email', email).first();
+            const result = await connection('tbl_user').where('user_email', email).first();
 
             delete result.password
             delete result.token
@@ -90,7 +90,7 @@ export async function Get_User_By_Email_Valid(email) {
             } 
 
       } catch (error) {
-
+            console.log(error)
             return ({
                   status: "failed",
                   data: error,
@@ -138,7 +138,7 @@ export async function Set_UpData_User(email, dados) {
             }
 
       } catch (error) {
-
+        console.log(error)
             return ({
                   status: "failed",
                   data: error,

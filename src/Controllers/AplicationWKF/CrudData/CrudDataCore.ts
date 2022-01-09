@@ -1,4 +1,4 @@
-import { Delete, Get_By_Id, Insert, List, List_Full_By_Col, List_Full_By_Col_like, Sun_Full, Sun_Full_By_Col, UpData } from "./FunctionsBD";
+import { Delete, Get_By_Id, Insert, List, List_Full_By_Col, List_Full_By_Col_like, Sun_Full, Sun_Full_By_Col, Sun_Full_By_Cols, UpData } from "./FunctionsBD";
 
 
 
@@ -93,11 +93,27 @@ export async function SunByCol(request, response) {
   return response.json(result);
 }
 
+export async function SunByCols(request, response) {
+  const table = request.params.table;
+  const colSum = request.params.colSum;
+  const colWhere1 = request.params.colWhere1;
+  const col_value1 = request.params.col_value1;
+  const colWhere2 = request.params.colWhere2;
+  const col_value2 = request.params.col_value2;
+
+  const result = await Sun_Full_By_Cols(table, colSum, colWhere1, col_value1, colWhere2, col_value2)
+  return response.json(result);
+}
+
 export async function SunFull(request, response) {
   const table = request.params.table;
   const colSum = request.params.colSum;
+  const colWhere = request.params.colWhere;
+  const col_value = request.params.col_value;
+  
+  
 
-  const result = await Sun_Full(table, colSum)
+  const result = await Sun_Full(table, colSum, colWhere, col_value)
   return response.json(result);
 }
 

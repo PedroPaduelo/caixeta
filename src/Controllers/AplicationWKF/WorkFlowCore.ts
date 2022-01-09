@@ -1,25 +1,24 @@
-import { Insert } from "./Utils/FunctionsBD";
-
+import { UpData } from "./Utils/FunctionsBD";
 
 // variaveis do ambiente
-const created_at = new Date();
 const updated_at = new Date();
 
-
-export async function Creat(request, response) {
-  const user_created = request.user_email;
+export async function AtualizaVendasEmLot(request, response) {
   const user_updated = request.user_email;
-
-  const table = request.params.table;
+  const vendas = request.body.dados;
   
+  while (vendas.length > 0) {
+    const venda = vendas.shift();
 
-  const result = await Insert(table, {
-    ...request.body, 
-    created_at, 
-    updated_at,
-    user_created,
-    user_updated
-  });
-
-  return response.json(result);
+      const result = await UpData('tbl_vendas', venda.id, {
+        ...venda,
+        status_caixa: 'Fechado', 
+        updated_at,
+        user_updated
+      }
+    );
+  }
+  return response.json("OK");
 }
+
+

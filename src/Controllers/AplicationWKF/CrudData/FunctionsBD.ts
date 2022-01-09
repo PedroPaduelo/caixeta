@@ -255,11 +255,37 @@ export async function Sun_Full_By_Col(table: string, colSum: string, colWhere: s
 
 
 
-export async function Sun_Full(table: string, colSum: string) {
+export async function Sun_Full_By_Cols(table: string, colSum: string, colWhere: string, col_value: any, colWhere1: string, col_value1: any) {
   try {
     const result = await connection(table)
       .sum(colSum)
       .from(table)
+      .where(colWhere, col_value)
+      .where(colWhere1, col_value1)
+      .first();
+
+    return ({
+      status: "success",
+      result: result,
+      message: "Sucesso ao listar!!!"
+    }); 
+  } catch (error) {
+    return ({
+      status: "success",
+      result: error,
+      message: "Erro ao listar."
+    });
+  }
+}
+
+
+
+export async function Sun_Full(table: string, colSum: string, colWhere: string, col_value: string) {
+  try {
+    const result = await connection(table)
+      .sum(colSum)
+      .from(table)
+      .where(colWhere, col_value)
       .first();
 
     return ({
