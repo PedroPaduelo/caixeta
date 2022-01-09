@@ -95,7 +95,7 @@ export async function List_Full_By_Col(table: string, col: string, col_value: an
     const result = await connection.select("*")
       .from(table)
       .where(col, col_value)
-      .orderBy(id);
+      .orderBy("id", "desc");
 
     return ({
       status: "success",
