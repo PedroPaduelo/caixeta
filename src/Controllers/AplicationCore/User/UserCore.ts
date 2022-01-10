@@ -65,7 +65,6 @@ export async function List(request, response) {
 }
 export async function Update(request, response) { 
   const user_email = request.body.user_email.toLowerCase();
-  const user_password = await hash(request.body.user_password, 10);
   // Dados enviados
   const user_fist_name = request.body.user_fist_name;
   const user_last_name = request.body.user_last_name;
@@ -84,7 +83,6 @@ export async function Update(request, response) {
   }else{
     const userUpData = await Set_UpData_User(user_email, {
       user_email,
-      user_password,
       user_fist_name,
       user_last_name,
       user_photo_file,
