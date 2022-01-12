@@ -54,6 +54,7 @@ export async function ListById(request, response) {
 }
 
 
+
 export async function ListByCol(request, response) {
   const table = request.params.table;
   const col = request.params.col;
@@ -75,7 +76,7 @@ export async function DeletByCol(request, response) {
 export async function ListByColLike(request, response) {
   const table = request.params.table;
   const col = request.params.col;
-  const id = request.params.id;
+  const id = request.params.id.toLowerCase() ;
 
   const result = await List_Full_By_Col_like(table, col, id)
   return response.json(result);
@@ -118,3 +119,34 @@ export async function SunFull(request, response) {
 }
 
 
+
+export async function ListFullCorrecao(request, response) {
+
+
+
+  const result = await List("tbl_produtos")
+
+
+  // let auxiprodutos = [];
+
+  // while(result.result.length > 0){
+  //   const element = result.result.shift();
+    
+
+  //   const prodOri = await Get_By_Id("tbl_produtos",element.id)
+
+  //   auxiprodutos.push({
+  //     id: element.id,
+  //     descricao_prod_lowercase: prodOri.result.descricao_prod.toLowerCase()
+  //   })
+
+  // await UpData("tbl_produtos", element.id, {
+  //   descricao_prod_lowercase: prodOri.result.descricao_prod.toLowerCase()
+  // })
+
+
+
+  // }
+
+  return response.json(result);
+}

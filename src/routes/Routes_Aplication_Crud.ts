@@ -6,6 +6,7 @@ const routes = express.Router();
 routes.post('/Creat/:table', Creat );
 routes.put('/Update/:table', Update );
 routes.get('/ListById/:table/:id',ListById );
+
 routes.get('/ListFull/:table', ListFull );
 routes.get('/ListByCol/:table/:col/:id', ListByCol );
 routes.get('/ListByColLike/:table/:col/:id', ListByColLike );
