@@ -220,6 +220,79 @@ export async function List_Full_By_Col_like(table: string, col: string, col_valu
 
 
 
+export async function Get_By_Id_Raw(table: string, col: string, id: string) {
+
+  try {
+    const result = await connection(table).where(col, id).first();
+
+    if (result) {
+      return ({
+        status: "success",
+        result: result,
+        message: "Informação localizada!!!"
+      }); 
+    }
+    else{
+      return({
+        status: "failed",
+        result: {},
+        message: "Informação não localizado!!!"
+      }); 
+    } 
+
+  } catch (error) {
+
+    return ({
+      status: "failed",
+      result: error,
+      message: "Erro ao localizar informação"
+    });
+  }
+}
+
+export async function Raw(table: string) {
+  try {
+    const result = await connection.raw(`${table}`)
+
+    if( typeof(result) === "object" && !Array.isArray(result) ){
+      const retorno = {
+        rowCount: result.rowCount,
+        rows: result.rows,
+        fields: result.fields
+      }
+      return ({
+        status: "success",
+        result: retorno,
+        message: "Sucesso ao listar!!!"
+      }); 
+    }else{
+      const retorno = result.map((item) => {
+        console.log(item);
+        return {
+          rowCount: item.rowCount,
+          rows: item.rows,
+          fields: item.fields
+        } 
+      })
+      return ({
+        status: "success",
+        result: retorno,
+        message: "Sucesso ao listar!!!"
+      });
+    }
+
+  } catch (error) {
+    console.log(error);
+    return ({
+      status: "success",
+      result: error,
+      message: "Erro ao listar."
+    });
+  }
+}
+
+
+
 
 
 
@@ -282,18 +355,40 @@ export async function Sun_Full_By_Cols(table: string, colSum: string, colWhere: 
 
 export async function Sun_Full(table: string, colSum: string, colWhere: string, col_value: string) {
   try {
-    const result = await connection(table)
+
+    if(colWhere == ""){
+      const result = await connection(table)
+      .sum(colSum)
+      .from(table)
+      .first();
+
+      return ({
+        status: "success",
+        result: result,
+        message: "Sucesso ao listar!!!"
+      }); 
+    }
+    else{
+      const result = await connection(table)
       .sum(colSum)
       .from(table)
       .where(colWhere, col_value)
       .first();
 
-    return ({
-      status: "success",
-      result: result,
-      message: "Sucesso ao listar!!!"
-    }); 
+      return ({
+        status: "success",
+        result: result,
+        message: "Sucesso ao listar!!!"
+      }); 
+    }
+
+    
+
+    
+
+    
   } catch (error) {
+    console.log(error);
     return ({
       status: "success",
       result: error,

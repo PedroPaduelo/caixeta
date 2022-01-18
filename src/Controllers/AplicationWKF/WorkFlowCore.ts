@@ -22,3 +22,15 @@ export async function AtualizaVendasEmLot(request, response) {
 }
 
 
+
+export async function Indice_Prods(request, response) {
+  const user_updated = request.user_email;
+  const vendas = request.body.dados;
+  
+  
+  
+  
+  return response.json("OK");
+}
+
+

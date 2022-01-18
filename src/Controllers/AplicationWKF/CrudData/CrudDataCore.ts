@@ -1,4 +1,4 @@
-import { Delete, Get_By_Id, Insert, List, List_Full_By_Col, List_Full_By_Col_like, Sun_Full, Sun_Full_By_Col, Sun_Full_By_Cols, UpData } from "./FunctionsBD";
+import { Delete, Get_By_Id, Get_By_Id_Raw, Insert, List, List_Full_By_Col, List_Full_By_Col_like, Raw, Sun_Full, Sun_Full_By_Col, Sun_Full_By_Cols, UpData } from "./FunctionsBD";
 
 
 
@@ -109,11 +109,9 @@ export async function SunByCols(request, response) {
 export async function SunFull(request, response) {
   const table = request.params.table;
   const colSum = request.params.colSum;
-  const colWhere = request.params.colWhere;
-  const col_value = request.params.col_value;
+  const colWhere = request.params.colWhere || "";
+  const col_value = request.params.col_value  || "";
   
-  
-
   const result = await Sun_Full(table, colSum, colWhere, col_value)
   return response.json(result);
 }
@@ -148,5 +146,21 @@ export async function ListFullCorrecao(request, response) {
 
   // }
 
+  return response.json(result);
+}
+
+
+
+export async function Execut_Raw_By_Cad(request, response) {
+  
+  const name_query = request.params.name_query;
+  const result_get = await Get_By_Id_Raw("sql_query_custom", "name_query", name_query)
+
+
+
+  const result = await Raw(result_get.result.query_sql)
+
+
+  
   return response.json(result);
 }

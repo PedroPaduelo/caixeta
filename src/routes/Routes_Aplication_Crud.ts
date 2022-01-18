@@ -1,5 +1,5 @@
 import express from 'express';
-import { Creat, DeletByCol, ListByCol, ListByColLike, ListById, ListFull, SunByCol, SunByCols, SunFull, Update } from '../Controllers/AplicationWKF/CrudData/CrudDataCore';
+import { Creat, DeletByCol, Execut_Raw_By_Cad, ListByCol, ListByColLike, ListById, ListFull, SunByCol, SunByCols, SunFull, Update } from '../Controllers/AplicationWKF/CrudData/CrudDataCore';
 
 const routes = express.Router();
 
@@ -12,11 +12,13 @@ routes.get('/ListByCol/:table/:col/:id', ListByCol );
 routes.get('/ListByColLike/:table/:col/:id', ListByColLike );
 routes.delete('/DeletByCol/:table/:id', DeletByCol );
 
-
 routes.get('/SunByCol/:table/:colSum/:colWhere/:col_value', SunByCol );
 routes.get('/SunFull/:table/:colSum', SunFull );
 
-
 routes.get('/SunByCols/:table/:colSum/:colWhere1/:col_value1/:colWhere2/:col_value2', SunByCols );
+
+
+
+routes.get('/Execut_Raw_By_Cad/:name_query',Execut_Raw_By_Cad );
 
 export default routes;
