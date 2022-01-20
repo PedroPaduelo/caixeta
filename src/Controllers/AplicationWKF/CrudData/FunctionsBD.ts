@@ -216,10 +216,6 @@ export async function List_Full_By_Col_like(table: string, col: string, col_valu
     });
   }
 }
-
-
-
-
 export async function Get_By_Id_Raw(table: string, col: string, id: string) {
 
   try {
@@ -249,10 +245,16 @@ export async function Get_By_Id_Raw(table: string, col: string, id: string) {
     });
   }
 }
-
-export async function Raw(table: string) {
+export async function Raw(table: string, dados: any) {
   try {
-    const result = await connection.raw(`${table}`)
+    let result 
+
+    if(dados){
+      result = await connection.raw(`${table}`, dados)
+    }else{
+      result = await connection.raw(`${table}`)
+    }
+    
 
     if( typeof(result) === "object" && !Array.isArray(result) ){
       const retorno = {
@@ -290,20 +292,6 @@ export async function Raw(table: string) {
     });
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export async function Sun_Full_By_Col(table: string, colSum: string, colWhere: string, col_value: any) {
   try {
     const result = await connection(table)
@@ -325,9 +313,6 @@ export async function Sun_Full_By_Col(table: string, colSum: string, colWhere: s
     });
   }
 }
-
-
-
 export async function Sun_Full_By_Cols(table: string, colSum: string, colWhere: string, col_value: any, colWhere1: string, col_value1: any) {
   try {
     const result = await connection(table)
@@ -350,9 +335,6 @@ export async function Sun_Full_By_Cols(table: string, colSum: string, colWhere: 
     });
   }
 }
-
-
-
 export async function Sun_Full(table: string, colSum: string, colWhere: string, col_value: string) {
   try {
 
@@ -396,3 +378,37 @@ export async function Sun_Full(table: string, colSum: string, colWhere: string, 
     });
   }
 }
+
+
+
+
+
+
+export async function Geral_BD(methodos: any, table: string, dados: any) {
+
+  try {
+
+    let result = connection(table)
+
+    methodos.forEach((methodo) => {
+      result = result[methodo.methodo](...methodo.dados)
+    });
+
+    return Promise.resolve(result).then((values) => {
+      return ({
+        status: "success",
+        result: values
+      });
+    });
+
+
+
+  } catch (error) {
+    return error
+  }
+}
+
+
+
+
+

@@ -1,4 +1,4 @@
-import { Delete, Get_By_Id, Get_By_Id_Raw, Insert, List, List_Full_By_Col, List_Full_By_Col_like, Raw, Sun_Full, Sun_Full_By_Col, Sun_Full_By_Cols, UpData } from "./FunctionsBD";
+import { Delete, Geral_BD, Get_By_Id, Get_By_Id_Raw, Insert, List, List_Full_By_Col, List_Full_By_Col_like, Raw, Sun_Full, Sun_Full_By_Col, Sun_Full_By_Cols, UpData } from "./FunctionsBD";
 
 
 
@@ -37,9 +37,6 @@ export async function Update(request, response) {
   });
   return response.json(result);
 }
-
-
-
 export async function ListFull(request, response) {
   const table = request.params.table;
   const result = await List(table)
@@ -52,9 +49,6 @@ export async function ListById(request, response) {
   const result = await Get_By_Id(table, id)
   return response.json(result);
 }
-
-
-
 export async function ListByCol(request, response) {
   const table = request.params.table;
   const col = request.params.col;
@@ -63,7 +57,6 @@ export async function ListByCol(request, response) {
   const result = await List_Full_By_Col(table, col, id)
   return response.json(result);
 }
-
 export async function DeletByCol(request, response) {
   const table = request.params.table;
   const id = request.params.id;
@@ -71,8 +64,6 @@ export async function DeletByCol(request, response) {
   const result = await Delete(table, id)
   return response.json(result);
 }
-
-
 export async function ListByColLike(request, response) {
   const table = request.params.table;
   const col = request.params.col;
@@ -81,9 +72,6 @@ export async function ListByColLike(request, response) {
   const result = await List_Full_By_Col_like(table, col, id)
   return response.json(result);
 }
-
-
-
 export async function SunByCol(request, response) {
   const table = request.params.table;
   const colSum = request.params.colSum;
@@ -93,7 +81,6 @@ export async function SunByCol(request, response) {
   const result = await Sun_Full_By_Col(table, colSum, colWhere, col_value)
   return response.json(result);
 }
-
 export async function SunByCols(request, response) {
   const table = request.params.table;
   const colSum = request.params.colSum;
@@ -105,7 +92,6 @@ export async function SunByCols(request, response) {
   const result = await Sun_Full_By_Cols(table, colSum, colWhere1, col_value1, colWhere2, col_value2)
   return response.json(result);
 }
-
 export async function SunFull(request, response) {
   const table = request.params.table;
   const colSum = request.params.colSum;
@@ -115,9 +101,6 @@ export async function SunFull(request, response) {
   const result = await Sun_Full(table, colSum, colWhere, col_value)
   return response.json(result);
 }
-
-
-
 export async function ListFullCorrecao(request, response) {
 
 
@@ -148,19 +131,33 @@ export async function ListFullCorrecao(request, response) {
 
   return response.json(result);
 }
-
-
-
 export async function Execut_Raw_By_Cad(request, response) {
   
   const name_query = request.params.name_query;
+  const dados = request.body.dados;
+
+
+
   const result_get = await Get_By_Id_Raw("sql_query_custom", "name_query", name_query)
 
-
-
-  const result = await Raw(result_get.result.query_sql)
+  const result = await Raw(result_get.result.query_sql, dados)
 
 
   
   return response.json(result);
 }
+
+
+
+
+export async function Geral(request, response) {
+
+  const table = request.params.table;
+  const dados = request.body.dados;
+  const methodos = request.body.methodos;
+
+  const result = await Geral_BD(methodos, table, dados)
+
+  return response.json(result);
+}
+
