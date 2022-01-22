@@ -391,7 +391,17 @@ export async function Geral_BD(methodos: any, table: string, dados: any) {
     let result = connection(table)
 
     methodos.forEach((methodo) => {
-      result = result[methodo.methodo](...methodo.dados)
+      switch (methodo.methodo) {
+        case "insert":
+          result = result[methodo.methodo](methodo.dados)
+          break;
+        case "del":
+          result = result[methodo.methodo]()
+          break;
+        default:
+          result = result[methodo.methodo](...methodo.dados)
+          break;
+      }
     });
 
     return Promise.resolve(result).then((values) => {
@@ -404,6 +414,7 @@ export async function Geral_BD(methodos: any, table: string, dados: any) {
 
 
   } catch (error) {
+    console.log(error);
     return error
   }
 }
