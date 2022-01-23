@@ -398,6 +398,10 @@ export async function Geral_BD(methodos: any, table: string, dados: any) {
         case "del":
           result = result[methodo.methodo]()
           break;
+        case "selectRaw":
+          result = result['select'](connection.raw(methodo.dados[0]))
+          break;
+
         default:
           result = result[methodo.methodo](...methodo.dados)
           break;
