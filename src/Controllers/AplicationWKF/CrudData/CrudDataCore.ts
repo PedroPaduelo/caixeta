@@ -3,13 +3,15 @@ import { Delete, Geral_BD, Get_By_Id, Get_By_Id_Raw, Insert, List, List_Full_By_
 
 
 // variaveis do ambiente
-const created_at = new Date();
-const updated_at = new Date();
+
 
 
 export async function Creat(request, response) {
   const user_created = request.user_email;
   const user_updated = request.user_email;
+
+  const created_at = new Date();
+const updated_at = new Date();
 
   const table = request.params.table;
   
@@ -28,7 +30,7 @@ export async function Update(request, response) {
   const user_updated = request.user_email;
 
   const table = request.params.table;
-
+  const updated_at = new Date();
 
   const result = await UpData(table, request.body.id, {
     ...request.body,

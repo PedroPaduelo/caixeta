@@ -79,6 +79,11 @@ select
 from tbl_vendas a
   left join tbl_clientes b on b.id = a.cliente;
   
+
+
+
+DROP VIEW public.view_tbl_vendas;
+CREATE OR REPLACE VIEW view_tbl_vendas AS
 select 
   a.id,
   a.tipo,
@@ -89,11 +94,18 @@ select
   b.nome as nome_do_cliente,
   a.status_caixa,
   a.referencia_externa,
-  to_char(a.created_at, 'dd/mm/yyyy') as created_at,
-  to_char(a.created_at, 'HH24:MI:SS') as hora_at
+  a.preco_de_custo,
+  a.markup_medio,
+  a.qtd_itens,
+
+  to_char(a.created_at, 'dd/mm') as created_at,
+  to_char(a.created_at, 'HH24:MI:SS') as hora_at,
+  a.created_at as created_at_data
 
 from tbl_vendas a
   left join tbl_clientes b on b.id = a.cliente;
 
 
 
+
+select * from tbl_vendas order by id desc
