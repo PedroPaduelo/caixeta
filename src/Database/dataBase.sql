@@ -100,10 +100,43 @@ select
 
   to_char(a.created_at, 'dd/mm') as created_at,
   to_char(a.created_at, 'HH24:MI:SS') as hora_at,
-  a.created_at as created_at_data
+
+  a.created_at::Date as created_at_data,
+  a.created_at as hora
 
 from tbl_vendas a
   left join tbl_clientes b on b.id = a.cliente;
+
+
+
+
+
+
+
+
+
+
+
+
+DROP VIEW public.view_tbl_caixa;
+CREATE OR REPLACE VIEW view_tbl_caixa AS
+select 
+  a.id,
+  a.user_created,
+  a.created_at,
+  a.user_updated,
+  a.updated_at,
+  a.tipo,
+  a.valor,
+  a.referencia_externa,
+  a.obs
+
+from tbl_caixa a;
+
+
+
+
+
 
 
 

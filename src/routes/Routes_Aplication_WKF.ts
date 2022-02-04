@@ -3,9 +3,14 @@ import { ListFullCorrecao } from '../Controllers/AplicationWKF/CrudData/CrudData
 import { AtualizaVendasEmLot, Indice_Prods } from '../Controllers/AplicationWKF/WorkFlowCore';
 
 
+
+
+
+
+
 const routes = express.Router();
 
-routes.put('/AtualizaVendasEmLot', AtualizaVendasEmLot );
+routes.post('/AtualizaVendasEmLot/:table', AtualizaVendasEmLot );
 routes.get('/ListFullCorrecao', ListFullCorrecao );
 
 

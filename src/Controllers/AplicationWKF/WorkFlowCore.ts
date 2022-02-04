@@ -1,51 +1,83 @@
 import connection from "../../Database/connectionDBA";
-import { Geral_BD, Insert, Raw } from "./CrudData/FunctionsBD";
-import { UpData } from "./Utils/FunctionsBD";
-
-// variaveis do ambiente
-const updated_at = new Date();
-
-export async function AtualizaVendasEmLot(request, response) {
-  const user_updated = request.user_email;
-  const vendas = request.body.dados;
-  
-  while (vendas.length > 0) {
-    const venda = vendas.shift();
-
-      const result = await UpData('tbl_vendas', venda.id, {
-        ...venda,
-        status_caixa: 'Fechado', 
-        updated_at,
-        user_updated
-      }
-    );
-  }
-  return response.json("OK");
-}
+import { Geral_BD} from "./CrudData/FunctionsBD";
 
 
 
-
-
-
-const testesss = {
+const methodosCuston = {
 	"methodos": [
 		{
 			"methodo": "select",
-			"dados": []
+			"dados": ["itens"]
 		}
 	]
 }
 
 
+
+
+
+
+
+
+export async function AtualizaVendasEmLot(request, response) {
+  
+  const table = request.params.table;
+  const dados = request.body.dados;
+  const methodos = request.body.methodos;
+  
+  const result = await Geral_BD(methodos, "tbl_vendas", dados)
+
+  let retorno = []
+
+  while(result.result.length > 0){
+    const venda = result.result.shift();
+
+    let count = 0;
+    let totalPrecoDeCusto = 0;
+
+    while(venda.itens.length > 0){
+      const itemDaVenda = venda.itens.shift();
+      totalPrecoDeCusto = totalPrecoDeCusto + (parseFloat(itemDaVenda.preco_de_custo) * parseFloat(itemDaVenda.quantidade))
+      count = count + 1;
+    }
+    const resultUp = await Geral_BD( [
+        {
+          "methodo": "where",
+          "dados": [{"id": venda.id}]
+        },
+        {
+          "methodo": "update",
+          "dados": [{
+            "id": venda.id,
+            "preco_de_custo": totalPrecoDeCusto
+          }]
+        }
+      ]
+    , "tbl_vendas", "")
+  }
+ 
+
+  return response.json(retorno.flat());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export async function Indice_Prods(request, response) {
-
-
-
-
-
-
-  const rawresult = await Raw("select id_venda, sum(preco_de_custo)::numeric(10,2) , avg(markup)::numeric(10,2) , count(id_venda) from tbl_vendas_itens GROUP BY id_venda",false)
 
 
 
@@ -103,7 +135,7 @@ export async function Indice_Prods(request, response) {
 
 
 
-  return response.json(rawresult);
+  return response.json("");
 }
 
 
