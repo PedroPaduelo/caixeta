@@ -29,6 +29,8 @@ export async function AtualizaVendasEmLot(request, response) {
 
   let retorno = []
 
+  
+
   while(result.result.length > 0){
     const venda = result.result.shift();
 
